@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigokasei Repository</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .hidden { display: none; }
+    .animate-spin {
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+        .font-japanese {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+    
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="font-japanese text-2xl font-bold text-indigo-600">Nigokasei</span>
+                        <span class="ml-2 text-2xl font-bold text-gray-800">Repository</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#materi" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Materi</a>
+                    <a href="#kontribusi" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Kontribusi</a>
+                    <a href="#tentang" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Tentang</a>
+                    <a href="/signin" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-150">Masuk</a>
+                    <button id="user-handler" class="hidden px-4 py-2 font-semibold text-sm rounded-lg text-white bg-red-600">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden min-h-screen bg-no-repeat bg-[url('https://scontent.fdps16-1.fna.fbcdn.net/v/t39.30808-6/473824889_1535104507327716_334078061425521258_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHdDhxkYvhDWJd2t84HbdkjiU1LMIR-y6qJTUswhH7LqgtdeFBgywE4YZXOOEuNwPDop-603GEw-bvIaRyXbXsD&_nc_ohc=zjRGcdm2O_oQ7kNvgGSkFpN&_nc_oc=Adl1GBHrB-7p_tzRihA56I4nFENupZnlLtrTY8LpvSwFGf5rDgmc0nTRzk2J7RO_Abg&_nc_zt=23&_nc_ht=scontent.fdps16-1.fna&_nc_gid=Hi-W3ujIVcNohjuN9cz09Q&oh=00_AYFeGYyJcsjX5dwAOTap1N2jczXoiBrpnJfUUnD9mAZjXQ&oe=67ED9E59')] bg-gray-700 bg-blend-multiply bg-cover bg-center ">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                <main class="py-16 xl:py-0 lg:py-0 mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 lg:mt-16 lg:px-8 xl:mt-20">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                            <span class="block">Nigokasei</span>
+                            <span class="block text-indigo-200">Repository</span>
+                        </h1>
+                        <p class="mt-3 text-base text-indigo-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Platform Repository yang menyediakan file arsip perkuliahan dan materi seperti PDF DOCX & PPT serta Try Out JLPT khususnya bagi kalian yang ingin mempersiapkan JLPT.
+                        </p>
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#materi" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50 md:py-4 md:text-lg md:px-10">
+                                    Jelajahi Materi
+                                </a>
+                            </div>
+                            <div class="mt-3 sm:mt-0 sm:ml-3">
+                                <a href="#kontribusi" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-500 bg-opacity-60 hover:bg-opacity-70 md:py-4 md:text-lg md:px-10">
+                                    Ikut Berkontribusi
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        
+    </div>
+   
+   <!-- Tentang Section -->
+<!-- Tentang Section -->
+<section id="tentang" class="py-12 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-8">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                   TENTANG
+                </h2>
+                <p class="mt-3 text-lg text-gray-600 mb-5">
+                    Nigokasei Repository adalah platform open-source yang dirancang khusus untuk mahasiswa jurusan Pendidikan Bahasa Jepang. Di sini, kamu bisa dengan mudah mengunduh berbagai file yang dibutuhkan untuk mendukung pembelajaran di mata kuliahmu.  
+                    <br><br>
+                    Platform ini menyediakan beragam materi kuliah seperti <span class="font-bold">Kanji, Bunpou, Choukai, Dokkai, Soumatome, Minna no Nihongo, Marugoto</span>, dan masih banyak lagi. File-file ini tersedia dalam berbagai format seperti DOCX, PPT, dan PDF, serta mencakup semua jenjang semester.  
+                    <br><br>
+                    Nigokasei Repository hadir untuk memudahkan mahasiswa dalam mengakses materi penting yang dapat dipelajari sebelum perkuliahan dimulai atau saat akan memasuki semester baru. Dengan adanya platform ini, diharapkan proses belajar menjadi lebih efisien dan menyenangkan! silahkan Baca ketentuan penggunaan paltform sebelum menggunakan
+                </p>
+                <a href="/policy" class="text-blue-500 font-semibold hover:text-blue-800">Ketentuan & Penggunaan Platform...</a>
+              
+            </div>
+            <div class="mt-12 lg:mt-0 hidden xl:block lg:block">
+                <img class="h-auto w-full object-cover rounded-lg sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://scontent.fdps16-1.fna.fbcdn.net/v/t39.30808-6/473824889_1535104507327716_334078061425521258_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHdDhxkYvhDWJd2t84HbdkjiU1LMIR-y6qJTUswhH7LqgtdeFBgywE4YZXOOEuNwPDop-603GEw-bvIaRyXbXsD&_nc_ohc=zjRGcdm2O_oQ7kNvgGSkFpN&_nc_oc=Adl1GBHrB-7p_tzRihA56I4nFENupZnlLtrTY8LpvSwFGf5rDgmc0nTRzk2J7RO_Abg&_nc_zt=23&_nc_ht=scontent.fdps16-1.fna&_nc_gid=Hi-W3ujIVcNohjuN9cz09Q&oh=00_AYFeGYyJcsjX5dwAOTap1N2jczXoiBrpnJfUUnD9mAZjXQ&oe=67ED9E59" alt="Orang sedang belajar bahasa Jepang">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+     <!-- Materi Section -->
+     <section id="materi" class="py-12 bg-gray-50 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-4xl text-indigo-600 font-semibold tracking-wide uppercase">REPOSITORY MATERI</h2>
+                
+                <p class="mt-4 max-w-2xl text-lg text-gray-500 lg:mx-auto">
+                    Temukan Arsip File PDF PPT Yang Sesuai Dengan Kebutuhanmu!
+                </p>
+            </div>
+
+            <div id="materi-card" class="mt-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+               
+            </div>
+
+           
+        </div>
+    </section>
+
+     <!-- Kontribusi Section -->
+     <section id="kontribusi" class="py-12 bg-white min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Berkontribusi</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Bagikan Pengetahuan Anda
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Platform ini berkembang berkat kontribusi dari anda yuk berkontribusi
+                </p>
+            </div>
+
+            <div class="mt-10 bg-indigo-50 rounded-lg p-8">
+                <div class="md:grid md:grid-cols-2 md:gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900">Cara Berkontribusi</h3>
+                        <ul class="mt-6 space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">
+                                    Masukkan nama anda sebagai pengirim
+                                </p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">
+                                   Masukkan email undiksha anda. email anda aman dari spam kami hanya mengirimkan notifikasi jika materi anda kami acc
+                                </p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">
+                                    Unggah materi perkuliahan bahasa jepang yang sudah anda pelajari semester lalu
+                                </p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">
+                                    Berikan tagline/judul terkait materi yang di unggah
+                                </p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">
+                                    Pilih opsi sesuaikan dengan materi anda saat ini
+                                </p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">
+                                    Masukkan link google drive materi anda pastikan link google drive sudah public (public/melihat/editor)
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 md:mt-0">
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h4 class="text-lg font-medium text-gray-900">Punya File Arsip Materi? Yuk Ajukan</h4>
+                            <form id="contribute-form" class="mt-6 space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700">Nama Pendek</label>
+                                    <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Nama anda">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                    <input type="email" id="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Email undiksha anda">
+                                </div>
+                                <div>
+                                    <label for="title-materi" class="block text-sm font-medium text-gray-700">Title Materi</label>
+                                    <input type="text" id="title-materi" name="title-materi" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Judul materi anda">
+                                </div>
+                                <div>
+                                    <label for="jenis-materi" class="block text-sm font-medium text-gray-700">Jenis Materi</label>
+                                    <select id="jenis-materi" name="jenis-materi" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="">Pilih Jenis Materi</option>
+                                        <option value="日本語ーBahasa Jepang">日本語ーBahasa Jepang</option>
+                                        <option value="教育ーPendidikan">教育ーPendidikan</option>
+                                        <option value="論文ーProposal">論文ーProposal</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                                    <textarea 
+                                      id="deskripsi-materi" 
+                                      rows="4" 
+                                      placeholder="Deskripsi materi singkat"
+                                      class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+                                    ></textarea>
+                                  </div>
+                                
+                                <div>
+                                    <label for="link-materi" class="block text-sm font-medium text-gray-700">Link Google Drive</label>
+                                    <input type="link" id="link-materi" name="link-materi" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="pastikan link dalam keadaan public">
+                                </div>
+                                <div>
+                                    <button type="submit" id="send-contribute" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Kirim Materi
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <h3 class="text-lg font-semibold">
+                <span class="font-japanese">Nigokasei</span> Repository
+              </h3>
+              <p class="text-gray-400 text-sm mt-1">
+                Platform sumber belajar bahasa Jepang untuk mahasiswa
+              </p>
+            </div>
+            
+            <div class="flex space-x-6">
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="sr-only">Facebook</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="sr-only">Instagram</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63z"/>
+                </svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="sr-only">GitHub</span>
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-400">
+            <p>© 2023 Nigokasei Open Source. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+      <script src="/frontservices/material.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="module" src="/frontservices/contribute-handler.js"></script>
+      <script  src="/frontservices/signusers.js"></script>
+</body> 
+</html>

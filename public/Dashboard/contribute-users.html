@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribute Users</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="/Dashboard/services/session.js" defer></script>
+    <script type="module" src="/Dashboard/services/contribute.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sidebar {
+            transition: all 0.3s;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 40;
+                height: 100vh;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 30;
+            }
+            .overlay.active {
+                display: block;
+            }
+        }
+    </style>
+    <script>
+        function validateSession() {
+  fetch('/api/check-session', {
+    credentials: 'include',
+    headers: {'Cache-Control': 'no-cache'}
+  })
+  .then(res => {
+    if (!res.ok) {
+      window.location.replace('/signin?error=session_expired&t=' + Date.now());
+    } else {
+      setTimeout(validateSession, 300000); // Recheck every 5 mins
+    }
+  })
+  .catch(() => {
+    window.location.replace('/signin?error=network_error&t=' + Date.now());
+  });
+}
+
+// Triggers:
+validateSession(); // On load
+document.addEventListener('visibilitychange', () => { // On tab focus
+  if (!document.hidden) validateSession();
+});
+    </script>
+
+</head>
+<body class="bg-gray-100">
+    <!-- Overlay for mobile sidebar -->
+    <div class="overlay"></div>
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar bg-indigo-800 text-white w-64 flex-shrink-0">
+            <div class="p-4 flex items-center justify-between border-b border-indigo-700">
+                <h1 class="text-xl font-bold">Nigokasei Admin</h1>
+                <button class="md:hidden sidebar-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="p-4">
+                <ul>
+                    <li class="mb-2">
+                        <a href="/admin" class="flex items-center p-2 rounded hover:bg-indigo-700">
+                            <i class="fas fa-database mr-3"></i>
+                            Database
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/contribute" class="flex items-center p-2 rounded bg-indigo-700">
+                            <i class="fas fa-users mr-3"></i>
+                            Kontribusi
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/work-panel" class="flex items-center p-2 rounded hover:bg-indigo-700">
+                            <i class="fa-solid fa-chalkboard-user mr-3"></i>
+                            Work Panel
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top navbar -->
+            <nav class="bg-white shadow-sm">
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex items-center">
+                            <!-- Mobile menu button -->
+                            <button class="md:hidden sidebar-toggle mr-2">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div class="flex-shrink-0 flex items-center">
+                                <h1 class="text-xl font-bold text-gray-800 hidden md:block">Nigokasei Admin</h1>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="ml-4 flex items-center md:ml-6">
+                                <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none">
+                                    <i class="fas fa-bell"></i>
+                                </button>
+                                <button id="signoutBtn" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 flex items-center">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>
+                                    Sign out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Main content area -->
+            <main class="flex-1 overflow-y-auto p-4 sm:px-6 lg:px-8 bg-gray-100">
+                <div class="bg-white shadow rounded-lg p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-medium text-gray-900">
+                            <i class="fas fa-database mr-2"></i>Nigokase Database
+                        </h2>
+                            <!--  -->
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamps</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title Materi</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link Drive</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CTA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contribute-users" class="bg-white divide-y divide-gray-200">
+                                
+                                <!-- Data will be filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Mobile sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const sidebarClose = document.querySelector('.sidebar-close');
+            const overlay = document.querySelector('.overlay');
+
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+            });
+
+            sidebarClose.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+          
+
+        });
+    </script>
+</body>
+</html>
