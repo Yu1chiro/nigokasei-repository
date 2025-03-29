@@ -1,10 +1,10 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { 
   getAuth, 
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification
-} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Inisialisasi Firebase
 let auth;

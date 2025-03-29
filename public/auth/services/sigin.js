@@ -1,9 +1,5 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-import { 
-  getAuth, 
-  signInWithEmailAndPassword,
-  sendEmailVerification
-} from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Fungsi untuk mendapatkan konfigurasi Firebase dari server
 async function initializeFirebase() {
