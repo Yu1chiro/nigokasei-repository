@@ -22,7 +22,7 @@ async function initializeFirebase() {
     throw error;
   }
 }
-
+// fix route
 // Inisialisasi Firebase
 let auth;
 initializeFirebase().then(app => {
@@ -71,7 +71,7 @@ document.getElementById('signinForm')?.addEventListener('submit', async (e) => {
       showConfirmButton: false,
       timer: 1500
     }).then(() => {
-      window.location.href = '/Dashboard/admin';
+      window.location.href = '/admin';
     });
     
   } catch (error) {
