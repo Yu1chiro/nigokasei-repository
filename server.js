@@ -85,13 +85,14 @@ const authLimiter = rateLimit({
 
 // Session configuration
 const SESSION_OPTIONS = {
-    maxAge: 2 * 24 * 60 * 60 * 1000, // Diubah dari 14 hari menjadi 2 hari (dalam milidetik)
+    maxAge: 2 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: true, // Selalu true di production
+    sameSite: 'none', // Wajib 'none' jika cross-site
     path: '/',
-    domain: process.env.NODE_ENV === 'production' ? 'nigokasei-opensc.vercel.app' : undefined
-};
+    // Hapus domain atau pastikan benar
+    // domain: process.env.NODE_ENV === 'production' ? '.yourdomain.com' : undefined
+  };
 // Middleware untuk cache control
 app.use((req, res, next) => {
     res.set({
