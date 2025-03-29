@@ -275,7 +275,7 @@ app.use('/Dashboard/admin', (req, res, next) => {
   app.get('/admin', (req, res) => {
     res.redirect(301, '/Dashboard/admin');
   });
- 
+//  fix script
 //   Contribute route di get rubah
 app.use('/Dashboard/contribute', (req, res, next) => {
     // Jika request ke dashboard admin, pastikan cache control strict
