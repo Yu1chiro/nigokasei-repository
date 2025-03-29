@@ -178,7 +178,7 @@ import { getAuth } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth
 // Inisialisasi Firebase
 let app;
 let database;
-let auth;
+let auth1;
 
 async function initializeFirebase() {
   try {
@@ -187,7 +187,7 @@ async function initializeFirebase() {
     const firebaseConfig = await response.json();
     app = initializeApp(firebaseConfig);
     database = getDatabase(app);
-    auth = getAuth(app);
+    auth1 = getAuth(app);
     return app;
   } catch (error) {
     console.error('Error initializing Firebase:', error);
@@ -453,7 +453,7 @@ async function initializeFirebase() {
     throw error;
   }
 }
-
+let auth;
 // Inisialisasi Firebase dan Auth
 initializeFirebase()
   .then(app => {
