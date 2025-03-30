@@ -1,10 +1,10 @@
 "use strict";
 
-var _firebaseApp = require("https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 
-var _firebaseDatabase = require("https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js");
+import { getDatabase, push, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-var _firebaseAuth = require("https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js");
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 // Inisialisasi Firebase
 var app;
@@ -37,9 +37,9 @@ function initializeFirebase() {
 
         case 8:
           firebaseConfig = _context.sent;
-          app = (0, _firebaseApp.initializeApp)(firebaseConfig);
-          database = (0, _firebaseDatabase.getDatabase)(app);
-          auth = (0, _firebaseAuth.getAuth)(app);
+          app = (0, initializeApp)(firebaseConfig);
+          database = (0, getDatabase)(app);
+          auth = (0, getAuth)(app);
           return _context.abrupt("return", app);
 
         case 15:
@@ -114,9 +114,9 @@ function handleFormSubmit(event) {
 
           }; // Kirim data ke Firebase Realtime Database
 
-          newContributeRef = (0, _firebaseDatabase.push)((0, _firebaseDatabase.ref)(database, 'contribute-users'));
+          newContributeRef = (0, push)((0, ref)(database, 'contribute-users'));
           _context2.next = 26;
-          return regeneratorRuntime.awrap((0, _firebaseDatabase.set)(newContributeRef, contributeData));
+          return regeneratorRuntime.awrap((0, set)(newContributeRef, contributeData));
 
         case 26:
           _context2.next = 28;
