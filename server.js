@@ -175,10 +175,58 @@ const authMiddleware = async (req, res, next) => {
     }
   };
  
+// Fungsi untuk mengirim notifikasi ke Telegram
+async function sendTelegramNotification(message) {
+  const botToken = process.env.API_KEY_BOT_TELEGRAM;
+  const chatId = process.env.CHAT_ID_TELEGRAM;
+  const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
+  try {
+    const response = await axios.post(telegramApiUrl, {
+      chat_id: chatId,
+      text: message,
+      parse_mode: 'HTML'
+    });
+    return true;
+  } catch (error) {
+    console.error('Error sending Telegram notification:', error.response ? error.response.data : error.message);
+    return false;
+  }
+}
+
+// Endpoint untuk menerima data dari client dan mengirim notifikasi
+app.post('/api/send-notification', async (req, res) => {
+  try {
+    const data = req.body;
+    
+    // Format pesan notifikasi
+    const message = `
+<b>📚 New Material Submission From Nigokasei Repository</b>
+    
+<b>👤 Name:</b> ${data.name}
+<b>📧 Email:</b> ${data.email}
+<b>📝 Title:</b> ${data.titleMateri}
+<b>🔖 Type:</b> ${data.jenisMateri}
+<b>🔗 Link:</b> ${data.linkMateri}
+    
+<i>⏰ Submitted at:</i> ${new Date(data.timestamp).toLocaleString()}
+    `;
+    
+    // Kirim notifikasi ke Telegram
+    await sendTelegramNotification(message);
+    
+    res.status(200).json({ success: true, message: 'Notification sent successfully' });
+  } catch (error) {
+    console.error('Error processing notification:', error);
+    res.status(500).json({ success: false, message: 'Failed to send notification' });
+  }
+});
 // Routes
 app.get('/',  (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+app.get('/contrib',  (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'contrib-users.html'));
 });
 
 // SIGNIN

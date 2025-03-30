@@ -149,9 +149,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (!user.email.endsWith('@student.undiksha.ac.id')) {
             await auth.signOut();
             await Swal.fire({
-              icon: 'error',
+              icon: 'info',
               title: 'Access Denied',
-              text: 'Only @student.undiksha.ac.id emails are allowed',
+              text: 'Gunakan email student undiksha untuk mengakses',
               confirmButtonColor: '#d33'
             });
             return;
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               // Validate email domain
               if (!user.email.endsWith('@student.undiksha.ac.id')) {
                 await auth.signOut();
-                throw new Error('Only @student.undiksha.ac.id emails are allowed');
+                throw new Error('Hanya email student undiksha yg di izinkan untuk mengakses halaman');
               }
               
               // Save to database
@@ -250,8 +250,8 @@ document.addEventListener('DOMContentLoaded', async () => {
               
               await Swal.fire({
                 icon: 'error',
-                title: 'Login Failed',
-                text: errorMessage,
+                title: 'Access Denied',
+                text: 'Gunakan email student undiksha untuk login',
                 confirmButtonColor: '#d33'
               });
             } finally {
